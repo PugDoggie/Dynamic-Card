@@ -12,20 +12,20 @@
   <link rel="stylesheet" href="static/css/style.css" />
 
   <!-- QRCode.js CDN -->
-   <script
+  <script
     src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
   ></script>
 
   <!-- 根據系統偏好自動套用主題 -->
   <script>
-     if (
+    if (
       window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
       document.documentElement.classList.add("dark");
     }
   </script>
 
-  <!-- 主題切換動畫 -->
+  <!-- 主題切換與浮層動畫 -->
   <style>
     body,
     .card,
@@ -76,6 +76,7 @@
       </div>
 
       <p>Engineer at @AMI</p>
+
       <ul class="social-links" aria-label="社群連結">
         <li>
           <a
@@ -100,6 +101,17 @@
         </li>
       </ul>
 
+      <!-- 新增：地址與電話 -->
+      <section class="contact-info" aria-label="聯絡資訊">
+        <p class="contact-item">
+          <strong>地址：</strong>臺南市中西區永福路二段123號
+        </p>
+        <p class="contact-item">
+          <strong>電話：</strong>
+          <a href="tel:+886123456789">+886 1234-56789</a>
+        </p>
+      </section>
+
       <button id="toggle-theme" aria-label="切換主題">
         Dark Mode
       </button>
@@ -108,7 +120,6 @@
       <div id="qr-overlay">
         <div id="qrcode-overlay"></div>
       </div>
-      
     </section>
   </main>
 
@@ -132,14 +143,15 @@
         overlay.classList.add("active");
         qrContainer.innerHTML = "";
         new QRCode(qrContainer, {
-          text: "https://pda.104.com.tw/profile/share/djeUuqhOscI09KZ5tgsC6zQHj1lKZ6ey",
+          text:
+            "https://pda.104.com.tw/profile/share/djeUuqhOscI09KZ5tgsC6zQHj1lKZ6ey",
           width: 192,
           height: 192,
           colorDark: "#000000",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.H,
+        });
       });
-    });
 
     // 點擊浮層任意區域關閉 QR Code
     document
@@ -149,7 +161,7 @@
           .getElementById("qr-overlay")
           .classList.remove("active");
         document.getElementById("qrcode-overlay").innerHTML = "";
-    });
+      });
   </script>
 </body>
 </html>

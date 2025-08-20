@@ -1,9 +1,9 @@
 :root {
   --bg-light: #f5f5f5;
-  --bg-dark: #2b2b2b;
+  --bg-dark:  #2b2b2b;
   --text-light: #333333;
-  --text-dark: #eaeaea;
-  --accent: #0078d7;
+  --text-dark:  #eaeaea;
+  --accent:     #0078d7;
 }
 
 * {
@@ -85,6 +85,23 @@ body {
   opacity: 0.7;
 }
 
+/* 新增聯絡資訊樣式 */
+.contact-info {
+  border-top: 1px solid var(--accent);
+  margin: 1rem 0;
+  padding-top: 1rem;
+}
+
+.contact-item {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.contact-item a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
 #toggle-theme {
   background: var(--accent);
   color: #fff;
@@ -92,12 +109,13 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: filter 0.2s;
 }
 
 #toggle-theme:hover {
-  background: darken(var(--accent), 10%);
+  filter: brightness(0.9);
 }
+
 #qr-overlay {
   position: fixed;
   top: 0;
@@ -110,14 +128,17 @@ body {
   justify-content: center;
   z-index: 999;
 }
+
 #qr-overlay.active {
   display: flex;
 }
+
 #qrcode-overlay {
   background: #fff;
   padding: 1rem;
   border-radius: 8px;
 }
+
 .dark #qrcode-overlay {
   background: #333;
 }

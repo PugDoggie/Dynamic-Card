@@ -1,0 +1,123 @@
+:root {
+  --bg-light: #f5f5f5;
+  --bg-dark: #2b2b2b;
+  --text-light: #333333;
+  --text-dark: #eaeaea;
+  --accent: #0078d7;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.dark body {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.card {
+  background: inherit;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dark .card {
+  border-color: #444;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.header h2 {
+  font-size: 1.5rem;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+.dark .avatar {
+  border-color: #777;
+}
+
+.social-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.social-links a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+
+#toggle-theme {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#toggle-theme:hover {
+  background: darken(var(--accent), 10%);
+}
+#qr-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+#qr-overlay.active {
+  display: flex;
+}
+#qrcode-overlay {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+}
+.dark #qrcode-overlay {
+  background: #333;
+}

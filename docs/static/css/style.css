@@ -204,6 +204,16 @@ body {
   height: 8px;
 }
 
+.skill .bar .fill {
+  width: 0;
+  height: 100%;
+  background-color: var(--fill-color, var(--accent));
+  transition: width 0.6s ease-out;
+  animation: expand 0.8s ease-out forwards;
+}
+
+
+
 .fill {
   width: 0;
   height: 100%;

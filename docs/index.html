@@ -18,52 +18,20 @@
 
   <!-- 根據系統偏好自動套用主題 -->
   <script>
-    if (
-      window.matchMedia("(prefers-color-scheme: dark)").matches
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.classList.add(savedTheme);
+    } else if (
+      window.matchMedia('(prefers-color-scheme: dark)').matches
     ) {
-      document.documentElement.classList.add("dark");
+      document.documentElement.classList.add('dark');
     }
   </script>
-
-  <!-- 主題切換與浮層動畫 -->
-  <style>
-    body,
-    .card,
-    .avatar {
-      transition: background-color 0.3s, color 0.3s,
-        border-color 0.3s;
-    }
-    .avatar {
-      cursor: pointer;
-    }
-    #qr-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-    }
-    #qr-overlay.active {
-      display: flex;
-    }
-    #qrcode-overlay {
-      background: #fff;
-      padding: 1rem;
-      border-radius: 8px;
-    }
-    .dark #qrcode-overlay {
-      background: #333;
-    }
-  </style>
 </head>
 <body>
   <main>
     <section class="card" aria-label="個人資訊卡片">
+      <!-- 頭像與名稱 -->
       <div class="header">
         <h2>David Lin</h2>
         <img
@@ -75,15 +43,13 @@
         />
       </div>
 
+      <!-- 職稱 -->
       <p>Engineer at @AMI</p>
 
+      <!-- 社群連結 -->
       <ul class="social-links" aria-label="社群連結">
         <li>
-          <a
-            href="https://github.com/PugDoggie"
-            target="_blank"
-            rel="noopener"
-          >
+          <a href="https://github.com/PugDoggie" target="_blank" rel="noopener">
             GitHub
           </a>
         </li>
@@ -101,33 +67,42 @@
         </li>
       </ul>
 
-      <!-- 新增：地址與電話 -->
+      <!-- 聯絡資訊 -->
       <section class="contact-info" aria-label="聯絡資訊">
         <p class="contact-item">
-          <strong>Address：</strong>36F., No. 95 Sec. 1, Xintai 5th Rd., Xizhi Dist.
+          <strong>Address：</strong>
+          36F., No. 95 Sec. 1, Xintai 5th Rd., Xizhi Dist.
         </p>
         <p class="contact-item">
           <strong>Mobile：</strong>
-          <a href="tel:+886123456789">+886 975-126962</a>
+          <a href="tel:+886975126962">+886 975 126 962</a>
         </p>
       </section>
-      </section>
-	    <section class="skills" aria-label="技能">
-		  <h3>Skills</h3>
-		  <div class="skill">
-		    <span>JavaScript</span>
-		    <div class="bar"><div class="fill" style="--pct:90%"></div></div>
-		  </div>
-		  <div class="skill">
-		    <span>React</span>
-		    <div class="bar"><div class="fill" style="--pct:80%"></div></div>
-		  </div>
-		  <div class="skill">
-		    <span>CSS / SCSS</span>
-		    <div class="bar"><div class="fill" style="--pct:75%"></div></div>
-		  </div>
-		</section>
 
+      <!-- 技能進度條 -->
+      <section class="skills" aria-label="技能">
+        <h3>Skills</h3>
+        <div class="skill">
+          <span>JavaScript</span>
+          <div class="bar">
+            <div class="fill" style="--pct:90%"></div>
+          </div>
+        </div>
+        <div class="skill">
+          <span>React</span>
+          <div class="bar">
+            <div class="fill" style="--pct:80%"></div>
+          </div>
+        </div>
+        <div class="skill">
+          <span>CSS / SCSS</span>
+          <div class="bar">
+            <div class="fill" style="--pct:75%"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 切換主題 -->
       <button id="toggle-theme" aria-label="切換主題">
         Dark Mode
       </button>
@@ -136,47 +111,46 @@
       <div id="qr-overlay">
         <div id="qrcode-overlay"></div>
       </div>
+    </section>
   </main>
 
   <script>
-    const toggleBtn = document.getElementById("toggle-theme");
-    toggleBtn.addEventListener("click", () => {
-      document.documentElement.classList.toggle("dark");
-      toggleBtn.textContent = document.documentElement.classList.contains(
-        "dark"
-      )
-        ? "Light Mode"
-        : "Dark Mode";
-    });
+    document.addEventListener('DOMContentLoaded', () => {
+      const html = document.documentElement;
+      const toggleBtn = document.getElementById('toggle-theme');
+      const avatar = document.getElementById('avatar-trigger');
+      const qrOverlay = document.getElementById('qr-overlay');
+      const qrContainer = document.getElementById('qrcode-overlay');
 
-    // 點擊頭像顯示 QR Code 浮層
-    document
-      .getElementById("avatar-trigger")
-      .addEventListener("click", () => {
-        const overlay = document.getElementById("qr-overlay");
-        const qrContainer = document.getElementById("qrcode-overlay");
-        overlay.classList.add("active");
-        qrContainer.innerHTML = "";
+      // 切換主題
+      toggleBtn.addEventListener('click', () => {
+        html.classList.toggle('dark');
+        const isDark = html.classList.contains('dark');
+        toggleBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+
+      // 顯示 QR Code
+      avatar.addEventListener('click', () => {
+        qrOverlay.classList.add('active');
+        qrContainer.innerHTML = '';
         new QRCode(qrContainer, {
           text:
-            "https://pda.104.com.tw/profile/share/djeUuqhOscI09KZ5tgsC6zQHj1lKZ6ey",
+            'https://pda.104.com.tw/profile/share/djeUuqhOscI09KZ5tgsC6zQHj1lKZ6ey',
           width: 192,
           height: 192,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.H,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.H
         });
       });
 
-    // 點擊浮層任意區域關閉 QR Code
-    document
-      .getElementById("qr-overlay")
-      .addEventListener("click", () => {
-        document
-          .getElementById("qr-overlay")
-          .classList.remove("active");
-        document.getElementById("qrcode-overlay").innerHTML = "";
+      // 點擊浮層任意處關閉
+      qrOverlay.addEventListener('click', () => {
+        qrOverlay.classList.remove('active');
+        qrContainer.innerHTML = '';
       });
+    });
   </script>
 </body>
 </html>

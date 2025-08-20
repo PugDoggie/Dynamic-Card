@@ -1,25 +1,37 @@
+/*----------------------------------------
+  :root 變數 — 色彩、間距、動態
+----------------------------------------*/
 :root {
-  --bg-light: #f5f5f5;
-  --bg-dark:  #2b2b2b;
+  --bg-light: #ffffff;
+  --bg-dark:  #1e1e1e;
   --text-light: #333333;
-  --text-dark:  #eaeaea;
-  --accent:     #0078d7;
+  --text-dark:  #f5f5f5;
+  --accent:    #4caf50;
+  --transition: 0.3s;
 }
 
-* {
+/*----------------------------------------
+  全域重置 & 排版
+----------------------------------------*/
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   background-color: var(--bg-light);
   color: var(--text-light);
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  transition: background-color var(--transition),
+              color var(--transition);
 }
 
 .dark body {
@@ -27,95 +39,112 @@ body {
   color: var(--text-dark);
 }
 
+/*----------------------------------------
+  卡片容器
+----------------------------------------*/
 .card {
-  background: inherit;
-  border: 1px solid #ccc;
+  background-color: inherit;
+  color: inherit;
+  border: 1px solid var(--text-light);
   border-radius: 8px;
   padding: 1.5rem;
   width: 320px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: border-color var(--transition);
 }
 
 .dark .card {
-  border-color: #444;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border-color: var(--text-dark);
 }
 
+/*----------------------------------------
+  標頭 & 大頭貼
+----------------------------------------*/
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  text-align: center;
   margin-bottom: 1rem;
 }
 
 .header h2 {
   font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .avatar {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #ccc;
-  transition: border-color 0.3s;
+  border: 2px solid var(--text-light);
+  cursor: pointer;
+  transition: border-color var(--transition),
+              transform var(--transition);
+}
+
+.avatar:hover {
+  transform: scale(1.05);
 }
 
 .dark .avatar {
-  border-color: #777;
+  border-color: var(--text-dark);
 }
 
+/*----------------------------------------
+  社群連結
+----------------------------------------*/
 .social-links {
   list-style: none;
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: space-around;
   margin: 1rem 0;
 }
 
 .social-links a {
-  color: var(--accent);
   text-decoration: none;
-  transition: opacity 0.2s;
+  color: inherit;
+  transition: color var(--transition);
 }
 
 .social-links a:hover {
-  opacity: 0.7;
+  color: var(--accent);
 }
 
-/* 新增聯絡資訊樣式 */
-.contact-info {
-  border-top: 1px solid var(--accent);
-  margin: 1rem 0;
-  padding-top: 1rem;
-}
-
-.contact-item {
-  margin: 0.5rem 0;
+/*----------------------------------------
+  聯絡資訊
+----------------------------------------*/
+.contact-info .contact-item {
+  margin-top: 0.5rem;
   font-size: 0.9rem;
 }
 
-.contact-item a {
+.contact-info a {
   color: var(--accent);
   text-decoration: none;
 }
 
+/*----------------------------------------
+  主題切換按鈕
+----------------------------------------*/
 #toggle-theme {
-  background: var(--accent);
-  color: #fff;
+  display: block;
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 1rem;
   border: none;
-  padding: 0.5rem 1rem;
   border-radius: 4px;
+  background-color: var(--accent);
+  color: #ffffff;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: filter 0.2s;
+  transition: opacity var(--transition);
 }
 
 #toggle-theme:hover {
-  filter: brightness(0.9);
+  opacity: 0.9;
 }
 
+/*----------------------------------------
+  QR Code 浮層
+----------------------------------------*/
 #qr-overlay {
   position: fixed;
   top: 0;
@@ -127,6 +156,7 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 999;
+  transition: opacity var(--transition);
 }
 
 #qr-overlay.active {
@@ -134,11 +164,77 @@ body {
 }
 
 #qrcode-overlay {
-  background: #fff;
+  background: #ffffff;
   padding: 1rem;
   border-radius: 8px;
 }
 
 .dark #qrcode-overlay {
-  background: #333;
+  background: #333333;
+}
+
+/*----------------------------------------
+  Skills 區塊
+----------------------------------------*/
+.skills {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.skills h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.skill {
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.skill span {
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.bar {
+  background-color: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.fill {
+  width: 0;
+  height: 100%;
+  background-color: var(--accent);
+  transition: width 0.6s ease-out;
+}
+
+/* 進場動畫（選擇性） */
+.fill {
+  animation: expand 0.8s ease-out forwards;
+}
+
+@keyframes expand {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--pct);
+  }
+}
+
+/*----------------------------------------
+  響應式：手機優化
+----------------------------------------*/
+@media (max-width: 360px) {
+  .card {
+    width: 90vw;
+    padding: 1rem;
+  }
+  .avatar {
+    width: 64px;
+    height: 64px;
+  }
 }

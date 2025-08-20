@@ -204,6 +204,7 @@ body {
   height: 8px;
 }
 
+/* 核心：一次定義所有屬性，背景色優先用 --fill-color，沒設定才退回 --accent */
 .skill .bar .fill {
   width: 0;
   height: 100%;
@@ -212,14 +213,12 @@ body {
   animation: expand 0.8s ease-out forwards;
 }
 
-
-
-.fill {
-  width: 0;
-  height: 100%;
-  background-color: var(--accent);
-  transition: width 0.6s ease-out;
+/* 進場動畫 */
+@keyframes expand {
+  from { width: 0; }
+  to   { width: var(--pct); }
 }
+
 
 /* 進場動畫（選擇性） */
 .fill {
